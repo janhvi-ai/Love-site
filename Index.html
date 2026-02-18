@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For My Forever 💍</title>
+
+<style>
+body {
+    margin:0;
+    font-family: 'Segoe UI', cursive;
+    background: linear-gradient(to right, #ffe6f0, #fff0f5);
+    overflow:hidden;
+    text-align:center;
+}
+
+.slideshow {
+    position: relative;
+    width: 300px;
+    height: 350px;
+    margin: 20px auto;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(255,105,180,0.4);
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/* Cute collage rotation effect */
+.slide:nth-child(1) { transform: rotate(-5deg); }
+.slide:nth-child(2) { transform: rotate(5deg); }
+.slide:nth-child(3) { transform: rotate(-3deg); }
+.slide:nth-child(4) { transform: rotate(3deg); }
+
+.page {
+    display:none;
+    padding:40px;
+}
+
+.active {
+    display:block;
+}
+
+input {
+    padding:10px;
+    border-radius:20px;
+    border:1px solid pink;
+}
+
+button {
+    padding:10px 20px;
+    border:none;
+    border-radius:25px;
+    background:pink;
+    color:white;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+button:hover {
+    background:#ff66a3;
+}
+
+img {
+    max-width:200px;
+    margin:10px;
+    border-radius:15px;
+}
+
+.collage img {
+    animation: blink 3s infinite;
+}
+
+@keyframes blink {
+    0% {opacity:1;}
+    50% {opacity:0.3;}
+    100% {opacity:1;}
+}
+
+.heart {
+    position:absolute;
+    color:pink;
+    animation: float 6s linear infinite;
+}
+
+@keyframes float {
+    from {transform: translateY(100vh);}
+    to {transform: translateY(-10vh);}
+}
+
+.typing {
+    border-right:3px solid pink;
+    white-space:nowrap;
+    overflow:hidden;
+    animation: typing 8s steps(80,end);
+}
+
+@keyframes typing {
+    from {width:0;}
+    to {width:100%;}
+}
+
+.boom {
+    font-size:60px;
+    animation: explode 1s ease-out forwards;
+}
+
+@keyframes explode {
+    from {transform:scale(0);}
+    to {transform:scale(2);}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="tumsehi.mp3" type="audio/mpeg">
+</audio>
+
+<!-- LOGIN PAGE -->
+<div class="page active" id="login">
+    <h2>Enter Username 💕</h2>
+    <input type="text" id="username">
+    <br>
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- 2023 PAGE -->
+<div class="page" id="page2023">
+    <h2>Our Beautiful 2023 💖</h2>
+    <div class="slideshow">
+        <img src="2023-1.jpg" class="slide active">
+        <img src="2023-2.jpg" class="slide">
+        <img src="2023-3.jpg" class="slide">
+        <img src="2023-4.jpg" class="slide">
+    </div>
+    <button onclick="nextPage('page2024')">Next</button>
+</div>
+
+<!-- 2024 PAGE -->
+<div class="page" id="page2024">
+    <h2>Our Magical 2024 💕</h2>
+    <div class="slideshow">
+        <img src="2024-1.jpg" class="slide active">
+        <img src="2024-2.jpg" class="slide">
+        <img src="2024-3.jpg" class="slide">
+        <img src="2024-4.jpg" class="slide">
+    </div>
+    <button onclick="nextPage('page2025')">Next</button>
+</div>
+
+<!-- 2025 PAGE -->
+<div class="page" id="page2025">
+    <h2>Our Dreamy 2025 💗</h2>
+    <div class="slideshow">
+        <img src="2025-1.jpg" class="slide active">
+        <img src="2025-2.jpg" class="slide">
+        <img src="2025-3.jpg" class="slide">
+        <img src="2025-4.jpg" class="slide">
+    </div>
+    <button onclick="nextPage('messagePage')">Next</button>
+</div>
+
+<!-- TYPING MESSAGE PAGE -->
+<div class="page" id="messagePage">
+    <h2>My Heart 💌</h2>
+    <p class="typing">
+    From the moment you came into my life, everything changed.  
+    Every smile, every laugh, every memory became more special.  
+    2023 gave me you.  
+    2024 made us stronger.  
+    2025 made me sure.  
+    I don't just want moments with you.  
+    I want forever with you.  
+    I want every morning and every night.  
+    I want your hand in mine always.
+    </p>
+    <button onclick="nextPage('proposalPage')">Next</button>
+</div>
+
+<!-- PROPOSAL PAGE -->
+<div class="page" id="proposalPage">
+    <h1>Will You Marry Me? 💍</h1>
+    <button onclick="yes()">Yes 💖</button>
+    <button onclick="no()">No 😢</button>
+</div>
+
+<!-- NO PAGE -->
+<div class="page" id="noPage">
+    <h2>Think Again 😭</h2>
+    <img src="no.gif">
+</div>
+
+<!-- YES PAGE -->
+<div class="page" id="yesPage">
+    <img src="varmala.jpg">
+    <h1>Abhivi Forever 💞</h1>
+</div>
+
+<script>
+function login() {
+    var user = document.getElementById("username").value;
+    if(user === "Janhvi's gulam") {
+        document.getElementById("login").classList.remove("active");
+        document.getElementById("page2023").classList.add("active");
+    } else {
+        alert("Wrong Username 😜");
+    }
+}
+
+function startSlideshow() {
+    const slides = document.querySelectorAll(".slideshow .slide");
+    let index = 0;
+
+    setInterval(() => {
+        slides[index].classList.remove("active");
+        index = (index + 1) % slides.length;
+        slides[index].classList.add("active");
+    }, 2500);
+}
+
+startSlideshow();
+
+document.addEventListener("click", function() {
+    var music = document.getElementById("bgMusic");
+    music.play();
+}, { once: true });
+
+function nextPage(id) {
+    var pages = document.querySelectorAll(".page");
+    pages.forEach(p => p.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+}
+
+function no() {
+    nextPage("noPage");
+}
+
+function yes() {
+    nextPage("yesPage");
+    setTimeout(function(){
+        window.close();
+    },5000);
+}
+
+/* Floating Hearts */
+setInterval(function(){
+    var heart = document.createElement("div");
+    heart.className="heart";
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.fontSize=Math.random()*20+20+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+},500);
+</script>
+
+</body>
+</html>
